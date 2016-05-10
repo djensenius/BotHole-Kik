@@ -1,16 +1,17 @@
 'use strict';
 
-let util = require('util'),
-  http = require('http'),
+let http = require('http'),
+  https = require('https'),
   Bot  = require('@kikinteractive/kik'),
   Mixpanel = require('mixpanel'),
   config = require('./config'),
   request = require('request'),
   fs = require('fs'),
-  glitch = require('glitch').GlitchedStream,
+  url = require('url'),
+  path = require('path'),
+  glitch = require('glitch'),
   zalgo = require('to-zalgo'),
   banish = require('to-zalgo/banish');
-
 var mixpanel = Mixpanel.init(config.mixPanelAPI);
 
 // Configure the bot API endpoint, details for your bot
@@ -22,11 +23,6 @@ let bot = new Bot({
 });
 
 bot.updateBotConfiguration();
-
-var gstream = new glitch({
-  'deviation' : 1,
-  'probabibility' : 1
-});
 
 bot.onStartChattingMessage((message) => {
   mixpanel.track('start-chatting');
@@ -46,8 +42,43 @@ bot.onLinkMessage((message) => {
   sendGeneric(message.from);
 });
 
+function download(picUrl, sendTo) {
+  let p = url.parse(picUrl);
+  let filename = path.basename(p.pathname);
+  console.log("Got a photo...");
+  https.get(picUrl, (res) => {
+    var file = fs.createWriteStream(`original/${filename}`);
+    console.log('statusCode: ', res.statusCode);
+    console.log('headers: ', res.headers);
+    if ( [301, 302].indexOf(res.statusCode) > -1 ) {
+     download(res.headers.location, sendTo);
+     return;
+   }
+   var data = "";
+   res.on('data', (chunk) => {
+     console.log("CHUNK!");
+     //data += chunk;
+     file.write(chunk);
+    });
+    res.on('end', () => {
+      file.end();
+      glitchFile(filename, sendTo);
+    })
+  });
+}
+
+function glitchFile(filename, sendTo) {
+  console.log("Going to glitch?");
+  glitch(`original/${filename}`, `glitched/${filename}`, 0.001, 2, 777);
+  console.log("Sending ", `${config.baseUrl}/glitched/${filename}`)
+  bot.send(Bot.Message.picture(`${config.baseUrl}/glitched/${filename}`)
+    .setAttributionName('BOT HOLE BOT')
+    .setAttributionIcon('http://s.imgur.com/images/favicon-96x96.png'),
+    sendTo);
+}
+
 bot.onPictureMessage((message) => {
-  sendGeneric(message.from);
+  download(message.picUrl, message.from);
 });
 
 bot.onVideoMessage((message) => {

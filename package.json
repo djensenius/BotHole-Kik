@@ -18,9 +18,14 @@
   "homepage": "https://github.com/djensenius/FoundSounds-Bot-Kik#readme",
   "dependencies": {
     "@kikinteractive/kik": "^2.0.2",
+    "express": "^4.13.4",
     "glitch": "^0.1.0",
     "mixpanel": "^0.4.0",
+    "morgan": "^1.7.0",
+    "ndarray-pixel-sort": "^1.0.0",
     "npm": "^3.8.9",
+    "processing-js": "^1.4.16",
+    "serve-static": "^1.10.2",
     "to-zalgo": "^1.0.0"
   }
 }
