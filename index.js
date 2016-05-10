@@ -69,9 +69,9 @@ function download(picUrl, sendTo) {
 
 function glitchFile(filename, sendTo) {
   console.log("Going to glitch?");
-  glitch(`original/${filename}`, `glitched/${filename}`, 0.001, 2);
-  console.log("Sending ", `${config.picUrl}/glitched/${filename}`)
-  bot.send(Bot.Message.picture(`${config.picUrl}/glitched/${filename}`)
+  glitch(`original/${filename}`, `glitched/${filename}.jpg`, 0.001, 2);
+  console.log("Sending ", `${config.picUrl}/glitched/${filename}.jpg`)
+  bot.send(Bot.Message.picture(`${config.picUrl}/glitched/${filename}.jpg`)
     .setAttributionName('BOT HOLE BOT')
     .setAttributionIcon('https://profilepics.cf.kik.com/5AHdkTcJDFePBW0PiqE3UsQ2ezU/orig.jpg?v=1462905085217'),
     sendTo);
