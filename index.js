@@ -71,13 +71,14 @@ function glitchFile(filename, sendTo) {
   console.log("Going to glitch?");
   glitch(`original/${filename}`, `glitched/${filename}`, 0.001, 2, 777);
   console.log("Sending ", `${config.baseUrl}/glitched/${filename}`)
-  bot.send(Bot.Message.picture(`${config.baseUrl}/glitched/${filename}`)
+  bot.send(Bot.Message.picture(`${config.picUrl}/glitched/${filename}`)
     .setAttributionName('BOT HOLE BOT')
-    .setAttributionIcon('http://s.imgur.com/images/favicon-96x96.png'),
+    .setAttributionIcon('https://profilepics.cf.kik.com/5AHdkTcJDFePBW0PiqE3UsQ2ezU/orig.jpg?v=1462905085217'),
     sendTo);
 }
 
 bot.onPictureMessage((message) => {
+  mixpanel.track('picture-message');
   download(message.picUrl, message.from);
 });
 
@@ -90,6 +91,14 @@ function sendGeneric(sendTo) {
   var myMessage = Bot.Message.text("I am a bot hole. Send me your data, and I will return it to you. I am a bot hole. This data did not make sense to me. So I swallowed it. I am a bot hole.");
   bot.send(myMessage, sendTo);
 }
+
+bot.onStickerMessage((message) => {
+  sendGeneric(message.from);
+});
+
+bot.onScanDataMessage((message) => {
+  sendGeneric(message.from);
+});
 
 // Set up your server and start listening
 let server = http
