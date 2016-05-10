@@ -79,6 +79,7 @@ function glitchFile(filename, sendTo) {
 
 bot.onPictureMessage((message) => {
   mixpanel.track('picture-message');
+  message.reply(`THIS PICTURE MAKES ME THINK.`);
   download(message.picUrl, message.from);
 });
 
