@@ -69,7 +69,7 @@ function download(picUrl, sendTo) {
 
 function glitchFile(filename, sendTo) {
   console.log("Going to glitch?");
-  glitch(`original/${filename}`, `glitched/${filename}`, 0.001, 2, 0777);
+  glitch(`original/${filename}`, `glitched/${filename}`, 0.001, 2);
   console.log("Sending ", `${config.picUrl}/glitched/${filename}`)
   bot.send(Bot.Message.picture(`${config.picUrl}/glitched/${filename}`)
     .setAttributionName('BOT HOLE BOT')
