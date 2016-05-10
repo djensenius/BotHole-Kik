@@ -1,30 +1,27 @@
 {
-  "name": "foundsounds-bot-kik",
+  "name": "bothole-kik",
   "version": "0.0.1",
-  "description": "Kik bot for FoundSounds",
+  "description": "BOT HOLE BOT",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/djensenius/FoundSounds-Bot-Kik.git"
+    "url": "git+https://github.com/djensenius/BotHole-Kik"
   },
   "author": "David Jensenius",
   "license": "BSD-3-Clause",
   "bugs": {
-    "url": "https://github.com/djensenius/FoundSounds-Bot-Kik/issues"
+    "url": "https://github.com/djensenius/BotHole-Kik/issues"
   },
-  "homepage": "https://github.com/djensenius/FoundSounds-Bot-Kik#readme",
+  "homepage": "https://github.com/djensenius/BotHole-Kik#readme",
   "dependencies": {
     "@kikinteractive/kik": "^2.0.2",
     "express": "^4.13.4",
     "glitch": "^0.1.0",
     "mixpanel": "^0.4.0",
-    "morgan": "^1.7.0",
-    "ndarray-pixel-sort": "^1.0.0",
     "npm": "^3.8.9",
-    "processing-js": "^1.4.16",
     "serve-static": "^1.10.2",
     "to-zalgo": "^1.0.0"
   }
