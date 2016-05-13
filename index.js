@@ -33,7 +33,7 @@ bot.onTextMessage((message) => {
   mixpanel.track('text_message');
   var myMessage = Bot.Message
   var evil = zalgo(message.body, {size: 'maxi'});
-  bot.send(evil, message.from);
+  bot.send(evil.substring(0,2000), message.from);
   banish(evil);
   console.log(evil);
 });
